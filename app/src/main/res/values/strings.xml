@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Test</string>
+
+    <!-- Card_view -->
+    <string name="title">Title: </string>
+    <string name="body">Body</string>
+
+    <!-- my_toolbar -->
+    <string name="icon">Icon</string>
+
+</resources>
