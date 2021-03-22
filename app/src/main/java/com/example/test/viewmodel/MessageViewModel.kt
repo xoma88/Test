@@ -1,26 +1,22 @@
 package com.example.test.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.example.test.DataBase.MyDatabase
-import com.example.test.ItemBoundaryCallback
+import com.example.test.Model.ItemBoundaryCallback
 import com.example.test.Model.Post.Message
-import com.example.test.Network.ApiCommon
+import com.example.test.Model.MyRepository
 
-class MessageViewModel(application: Application) : ViewModel() {
-    val db = MyDatabase.getInstance(application)
-    val myDao = db.myDao()
-    val apiService = ApiCommon.service
+class MessageViewModel(myRepository: MyRepository) : ViewModel() {
 
+    val repository = myRepository
+    val boundaryCallback = ItemBoundaryCallback(repository)
     val message: LiveData<PagedList<Message>>
-    val boundaryCallback = ItemBoundaryCallback(apiService, myDao)
 
     init {
-        val factory: DataSource.Factory<Int, Message> = MyDatabase.getInstance(application).myDao().getAllMessage()
+        val factory: DataSource.Factory<Int, Message> = repository.getMessageDb()
 
         val config = PagedList.Config.Builder()
             .setPageSize(20)

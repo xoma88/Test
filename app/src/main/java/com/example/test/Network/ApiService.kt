@@ -7,5 +7,5 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("public-api/posts")
-    fun getNextMessageList(@Query("page") page : Int): Call<Post>
+    fun getMessageList(@Query("page") page : Int): Call<Post>
 }
